@@ -1,30 +1,54 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div>
+    <flow-form 
+    ref="flowform"
+    :questions="questions"
+    :language="language"
+    reverse="true"
+  >
+
+  </flow-form>
+
   </div>
-  <router-view/>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { FlowForm } from '@ditdot-dev/vue-flow-form'
+import { vff_model_fr } from './js/vue-flow-form/Vff_LanguageModel_Fr'
+import { QuestionModel, QuestionType, ChoiceOption } from '@ditdot-dev/vue-flow-form'
 
-#nav {
-  padding: 30px;
-}
+  export default {
+    data(){
+      return {
+        language: vff_model_fr,
+        questions: [
+          new QuestionModel({
+            id: 'test',
+            title: 'Salut ça va ?',
+            type: QuestionType.MultipleChoice,
+            options: [
+              new ChoiceOption({
+                label: 'Ouais'
+              }),
+              new ChoiceOption({
+                label: 'Bof'
+               }),
+              new ChoiceOption({
+                label: 'Nan'
+              })
+            ]
+          })
+        ]
+      }
+      
+    },
+    components: {
+      FlowForm
+    },
+  }
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style lang="css" scoped>
+  @import '~@ditdot-dev/vue-flow-form/dist/vue-flow-form.css';
+  @import url('./style/custom_vff_theme.css');
 </style>
